@@ -8,9 +8,14 @@ module.exports = {
 
     partials: {},
 
+    defaults: {
+        ext: '.hbs',
+        name: 'handlebars'
+    },
+
     config: null,
 
-    init: function(config){
+    configure: function(config){
         this.config = config;
     },
 
