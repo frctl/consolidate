@@ -6,7 +6,7 @@ var _           = require('lodash');
 
 module.exports = function(source, config){
 
-    config = _defaultsDeep(config || {}, {
+    config = _.defaultsDeep(config || {}, {
         engine: 'handlebars'
     });
 
