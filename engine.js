@@ -11,6 +11,7 @@ module.exports = function(source, config){
     });
 
     const partials = {};
+    let viewsLoaded = false;
 
     function loadViews(source) {
         for (let item of source.flatten(true)) {
