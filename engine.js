@@ -4,55 +4,43 @@ var consolidate = require('consolidate');
 var path        = require('path');
 var _           = require('lodash');
 
-module.exports = {
+module.exports = function(source, config){
 
-    partials: {},
+    config = _defaultsDeep(config || {}, {
+        engine: 'handlebars'
+    });
 
-    defaults: {
-        ext: '.hbs',
-        name: 'handlebars'
-    },
+    const partials = {};
 
-    config: null,
-
-    configure: function(config){
-        this.config = config;
-    },
-
-    /**
-     * Register component view templates as partials.
-     * Called every time the component file tree changes.
-     */
-
-    registerViews: function(views) {
-        var self = this;
-        views.forEach(function(view){
-            self.partials[view.handle] = view.path;
-            if (view.alias) {
-                self.partials[view.alias] = view.path;
+    function loadViews(source) {
+        for (let item of source.flatten(true)) {
+            partials[item.handle] = item.content;
+            if (item.alias) {
+                partials[item.alias] = item.content;
             }
-        });
-    },
+        }
+        viewsLoaded = true;
+    }
 
-    /**
-     * Render the component view contents.
-     * More work than it should be because it needs some skanky
-     * partial path rewriting to make them play nicely with consolidate.
-     */
+    source.on('loaded', loadViews);
+    source.on('changed', loadViews);
 
-    render: function(str, context, meta) {
-        context.partials = {};
-        var tplPath = meta.path;
-        _.each(this.partials, function(partialPath, partialKey){
-            if (tplPath != partialPath) {
-                var relPath = path.relative(tplPath, partialPath).replace('../', '');
-                var parts = path.parse(relPath);
-                if ( !_.isEmpty(parts.name) && (path.extname(tplPath) == path.extname(partialPath))) {
-                    context.partials[partialKey] = path.join(parts.dir, parts.name);
+    return {
+        engine: consolidate[config.engine],
+        render: function(tplPath, str, context, meta){
+            if (!viewsLoaded) loadViews(source);
+            context.partials = {};
+            _.each(partials, function(partialPath, partialKey){
+                if (tplPath != partialPath) {
+                    const relPath = path.relative(tplPath, partialPath).replace('../', '');
+                    const parts = path.parse(relPath);
+                    if ( !_.isEmpty(parts.name) && (path.extname(tplPath) == path.extname(partialPath))) {
+                        context.partials[partialKey] = path.join(parts.dir, parts.name);
+                    }
                 }
-            }
-        });
-        return consolidate[this.config.name](meta.path, context);
+            });
+            return Promise.resolve(consolidate[config.engine](tplPath, context));
+        }
     }
 
 };
