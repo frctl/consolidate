@@ -27,10 +27,11 @@ Then add configuration details into your `fractal.js` file:
 const fractal = require('@frctl/fractal');
 
 fractal.engine('consolidate', '@frctl/consolidate-engine', {
-    engine: 'swig'
+    engine: 'swig' // The template language to use
 });
-fractal.set('components.engine', 'consolidate');
-fractal.set('components.ext', '.swig');
+
+fractal.set('components.engine', 'consolidate'); // use the consolidate handler
+fractal.set('components.ext', '.swig'); // look for files with a .swig file extension
 ```
 
 You can see a full list of supported template languages on the [Consolidate documentation](https://github.com/tj/consolidate.js).
@@ -45,13 +46,14 @@ For example, to extend the above example to use a customised instance of Swig yo
 const swig    = require('swig');
 const fractal = require('@frctl/fractal');
 
+// Add a custom Swig filter
 swig.setFilter('join', function (input, char) {
   return input.join(char);
 });
 
 fractal.engine('consolidate', '@frctl/consolidate-engine', {
     engine: 'swig',
-    instance: swig
+    instance: swig // Pass in the custom Swig instance
 });
 fractal.set('components.engine', 'consolidate');
 fractal.set('components.ext', '.swig');
