@@ -15,9 +15,9 @@ module.exports = function(source, config){
 
     function loadViews(source) {
         for (let item of source.flatten(true)) {
-            partials[item.handle] = item.content;
+            partials[item.handle] = item.viewPath;
             if (item.alias) {
-                partials[item.alias] = item.content;
+                partials[item.alias] = item.viewPath;
             }
         }
         viewsLoaded = true;
@@ -27,7 +27,8 @@ module.exports = function(source, config){
     source.on('changed', loadViews);
 
     return {
-        engine: consolidate[config.engine],
+        engine:  consolidate[config.engine],
+        requires: consolidate.requires,
         render: function(tplPath, str, context, meta){
             if (!viewsLoaded) loadViews(source);
             context.partials = {};
