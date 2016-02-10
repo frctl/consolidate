@@ -6,9 +6,14 @@ var _           = require('lodash');
 
 module.exports = function(source, config){
 
-    config = _.defaultsDeep(config || {}, {
-        engine: 'handlebars'
+    config = _.defaults(config || {}, {
+        engine: 'handlebars',
+        instance: null,
     });
+
+    if (config.instance) {
+        consolidate.requires[config.engine] = config.instance;
+    }
 
     const partials = {};
     let viewsLoaded = false;
