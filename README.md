@@ -15,7 +15,7 @@ Currently specific template engine handlers have been implemented for:
 
 This engine comes pre-installed with Fractal, so there is no need to install it separately. However **you will need to install whichever template engine you want to use** via NPM.
 
-As an example, to use Swig templates, first install swig:
+As an example, to use [Swig templates](http://paularmstrong.github.io/swig/), first install swig:
 
 ```bash
 npm i swig --save
