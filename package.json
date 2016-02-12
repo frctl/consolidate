@@ -1,6 +1,6 @@
 {
   "name": "@frctl/consolidate-engine",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Generic template engine handler for Fractal, powered by consolidate.js",
   "main": "engine.js",
   "repository": {
