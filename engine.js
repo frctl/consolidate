@@ -1,8 +1,8 @@
 'use strict';
 
-var consolidate = require('consolidate');
-var path        = require('path');
-var _           = require('lodash');
+const consolidate = require('consolidate');
+const Path        = require('path');
+const _           = require('lodash');
 
 module.exports = function(source, config){
 
@@ -39,10 +39,10 @@ module.exports = function(source, config){
             context.partials = {};
             _.each(partials, function(partialPath, partialKey){
                 if (tplPath != partialPath) {
-                    const relPath = path.relative(tplPath, partialPath).replace('../', '');
-                    const parts = path.parse(relPath);
-                    if ( !_.isEmpty(parts.name) && (path.extname(tplPath) == path.extname(partialPath))) {
-                        context.partials[partialKey] = path.join(parts.dir, parts.name);
+                    const relPath = Path.relative(tplPath, partialPath).replace('../', '');
+                    const parts = Path.parse(relPath);
+                    if ( !_.isEmpty(parts.name) && (Path.extname(tplPath) == Path.extname(partialPath))) {
+                        context.partials[partialKey] = Path.join(parts.dir, parts.name);
                     }
                 }
             });
