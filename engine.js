@@ -19,7 +19,7 @@ module.exports = function(source, config){
     let viewsLoaded = false;
 
     function loadViews(source) {
-        for (let item of source.flatten(true)) {
+        for (let item of source.flattenDeep()) {
             partials[item.handle] = item.viewPath;
             if (item.alias) {
                 partials[item.alias] = item.viewPath;
