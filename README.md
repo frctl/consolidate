@@ -8,23 +8,32 @@ Currently specific template engine handlers have been implemented for:
 
 * [Handlebars](https://github.com/frctl/handlebars-engine)
 * [Nunjucks](https://github.com/frctl/nunjucks-engine)
+* [Mustache](https://github.com/frctl/mustache-engine)
 
 > Note: Due to the way that Consolidate handles loading of templates, this engine cannot be used for rendering pages, only components.
 
 ## Usage
 
-This engine comes pre-installed with Fractal, so there is no need to install it separately. However **you will need to install whichever template engine you want to use** via NPM.
+#### 1. Install the consolidate engine handler
 
-As an example, to use [Swig templates](http://paularmstrong.github.io/swig/), first install swig:
+```shell
+npm i @frctl/consolidate-engine --save
+```
 
-```bash
+#### 2. Install the template language parser
+
+As an example, to use [Swig templates](http://paularmstrong.github.io/swig/), you need to install swig:
+
+```shell
 npm i swig --save
 ```
 
-Then add configuration details into your `fractal.js` file:
+#### 2. Add configuration details
+
+You then need to add the configuration details into your `fractal.js` file:
 
 ```js
-const fractal = require('@frctl/fractal');
+var fractal = require('@frctl/fractal');
 
 fractal.engine('consolidate', '@frctl/consolidate-engine', {
     engine: 'swig' // The template language to use
