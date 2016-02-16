@@ -20,9 +20,9 @@ module.exports = function(source, config){
 
     function loadViews(source) {
         for (let item of source.flattenDeep()) {
-            partials[item.handle] = item.viewPath;
+            partials['@' + item.handle] = item.viewPath;
             if (item.alias) {
-                partials[item.alias] = item.viewPath;
+                partials['@' + item.alias] = item.viewPath;
             }
         }
         viewsLoaded = true;
