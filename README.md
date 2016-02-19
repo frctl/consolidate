@@ -1,23 +1,23 @@
-# Consolidate Engine
+# Consolidate Adapter
 
-Generic template engine handler for [Fractal](http://frctl.github.io), powered by [consolidate.js](https://github.com/tj/consolidate.js).
+Generic template engine adapter for [Fractal](http://frctl.github.io), powered by [consolidate.js](https://github.com/tj/consolidate.js).
 
-**This engine is currently very experimental.** If a specific Fractal template engine handler for your desired language is available then it is recommended to **use that instead of this one** as it will likely be easier to use and configure than this generic handler.
+**This adapter is currently experimental.** If a specific Fractal template engine adapter for your desired language is available then it is recommended to **use that instead of this one** as it will likely be easier to use and configure than this generic handler.
 
-Currently specific template engine handlers have been implemented for:
+Currently specific template engine adapters have been implemented for:
 
-* [Handlebars](https://github.com/frctl/handlebars-engine)
-* [Nunjucks](https://github.com/frctl/nunjucks-engine)
-* [Mustache](https://github.com/frctl/mustache-engine)
+* [Handlebars](https://github.com/frctl/handlebars-adapter)
+* [Nunjucks](https://github.com/frctl/nunjucks-adapter)
+* [Mustache](https://github.com/frctl/mustache-adapter)
 
 > Note: Due to the way that Consolidate handles loading of templates, this engine cannot be used for rendering pages, only components.
 
 ## Usage
 
-#### 1. Install the consolidate engine handler
+#### 1. Install the consolidate engine adapter
 
 ```shell
-npm i @frctl/consolidate-engine --save
+npm i @frctl/consolidate-adapter --save
 ```
 
 #### 2. Install the template language parser
@@ -35,7 +35,7 @@ You then need to add the configuration details into your `fractal.js` file:
 ```js
 var fractal = require('@frctl/fractal');
 
-fractal.engine('consolidate', '@frctl/consolidate-engine', {
+fractal.engine('consolidate', '@frctl/consolidate-adapter', {
     engine: 'swig' // The template language to use
 });
 
@@ -60,7 +60,7 @@ swig.setFilter('join', function (input, char) {
   return input.join(char);
 });
 
-fractal.engine('consolidate', '@frctl/consolidate-engine', {
+fractal.engine('consolidate', '@frctl/consolidate-adapter', {
     engine: 'swig',
     instance: swig // Pass in the custom Swig instance
 });

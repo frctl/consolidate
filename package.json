@@ -1,18 +1,18 @@
 {
-  "name": "@frctl/consolidate-engine",
+  "name": "@frctl/consolidate-adapter",
   "version": "0.4.0",
-  "description": "Generic template engine handler for Fractal, powered by consolidate.js",
-  "main": "engine.js",
+  "description": "Generic template engine adapter for Fractal, powered by consolidate.js",
+  "main": "adapter.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/frctl/consolidate-engine.git"
+    "url": "https://github.com/frctl/consolidate-adapter.git"
   },
   "author": "Clearleft <dev@clearleft.com> (http://clearleft.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/frctl/consolidate-engine/issues"
+    "url": "https://github.com/frctl/consolidate-adapter/issues"
   },
-  "homepage": "https://github.com/frctl/consolidate-engine",
+  "homepage": "https://github.com/frctl/consolidate-adapter",
   "dependencies": {
     "consolidate": "^0.13.1",
     "lodash": "^4.0.0"
