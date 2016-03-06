@@ -2,7 +2,7 @@
 
 Generic template engine adapter for [Fractal](http://frctl.github.io), powered by [consolidate.js](https://github.com/tj/consolidate.js).
 
-**This adapter is currently experimental.** If a specific Fractal template engine adapter for your desired language is available then it is recommended to **use that instead of this one** as it will likely be easier to use and configure than this generic handler.
+If a specific Fractal template engine adapter for your desired language is available then it is recommended to **use that instead of this one** as it will likely be easier to use and configure than this generic handler.
 
 Currently specific template engine adapters have been implemented for:
 
@@ -22,7 +22,7 @@ npm i @frctl/consolidate-adapter --save
 
 #### 2. Install the template language parser
 
-As an example, to use [Swig templates](http://paularmstrong.github.io/swig/), you need to install swig:
+As an example, to use [Swig templates](http://paularmstrong.github.io/swig/), first you need to install Swig:
 
 ```shell
 npm i swig --save
