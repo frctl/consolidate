@@ -18,7 +18,7 @@ module.exports = function(source, config){
     const partials = {};
     let viewsLoaded = false;
 
-    function loadViews(source) {
+    function loadViews() {
         for (let item of source.flattenDeep()) {
             partials['@' + item.handle] = item.viewPath;
             if (item.alias) {
