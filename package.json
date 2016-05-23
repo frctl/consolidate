@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/frctl/consolidate-adapter",
   "dependencies": {
-    "consolidate": "^0.13.1",
+    "consolidate": "^0.14.1",
     "lodash": "^4.0.0"
   },
   "devDependencies": {}
