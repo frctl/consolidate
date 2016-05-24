@@ -8,11 +8,11 @@ const Adapter     = require('@frctl/fractal').Adapter;
 class ConsolidateAdapter extends Adapter {
 
     constructor(engineName, instance, source) {
-        super(consolidate[engineName], source);
-        this._engineName = engineName;
         if (instance) {
-            consolidate.requires[this._engineName] = instance;
+            consolidate.requires[engineName] = instance;
         }
+        super(instance || require(engineName), source);
+        this._engineName = engineName;
     }
 
     get engine() {
