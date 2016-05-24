@@ -3,51 +3,49 @@
 const consolidate = require('consolidate');
 const Path        = require('path');
 const _           = require('lodash');
+const Adapter     = require('@frctl/fractal').Adapter;
 
-module.exports = function(source, config){
+class ConsolidateAdapter extends Adapter {
 
-    config = _.defaults(config || {}, {
-        engine: 'handlebars',
-        instance: null,
-    });
-
-    if (config.instance) {
-        consolidate.requires[config.engine] = config.instance;
-    }
-
-    const partials = {};
-    let viewsLoaded = false;
-
-    function loadViews() {
-        for (let item of source.flattenDeep()) {
-            partials['@' + item.handle] = item.viewPath;
-            if (item.alias) {
-                partials['@' + item.alias] = item.viewPath;
-            }
+    constructor(engineName, instance, source) {
+        super(consolidate[engineName], source);
+        this._engineName = engineName;
+        if (instance) {
+            consolidate.requires[this._engineName] = instance;
         }
-        viewsLoaded = true;
     }
 
-    source.on('loaded', loadViews);
-    source.on('changed', loadViews);
+    get engine() {
+        return this._engine;
+    }
+
+    render(tplPath, str, context, meta) {
+        context.partials = {};
+        _.each(this._views, function(view){
+            if (tplPath != view.path) {
+                const relPath = Path.relative(tplPath, view.path).replace('../', '');
+                const parts = Path.parse(relPath);
+                if ( !_.isEmpty(parts.name) && (Path.extname(tplPath) == Path.extname(view.path))) {
+                    context.partials[view.handle] = Path.join(parts.dir, parts.name);
+                }
+            }
+        });
+        return Promise.resolve(this.engine(tplPath, context));
+    }
+
+}
+
+module.exports = function(engineName, instance) {
 
     return {
-        engine:  consolidate[config.engine],
-        requires: consolidate.requires,
-        render: function(tplPath, str, context, meta){
-            if (!viewsLoaded) loadViews(source);
-            context.partials = {};
-            _.each(partials, function(partialPath, partialKey){
-                if (tplPath != partialPath) {
-                    const relPath = Path.relative(tplPath, partialPath).replace('../', '');
-                    const parts = Path.parse(relPath);
-                    if ( !_.isEmpty(parts.name) && (Path.extname(tplPath) == Path.extname(partialPath))) {
-                        context.partials[partialKey] = Path.join(parts.dir, parts.name);
-                    }
-                }
-            });
-            return Promise.resolve(consolidate[config.engine](tplPath, context));
+
+        register(source, app) {
+
+            return new ConsolidateAdapter(engineName, instance, source);
+
         }
     }
 
 };
+
+module.exports.consolidate = consolidate;

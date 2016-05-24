@@ -30,16 +30,15 @@ npm i swig --save
 
 #### 2. Add configuration details
 
-You then need to add the configuration details into your `fractal.js` file:
+You then need to configure Fractal to use Swig via the Consolidate adapter:
 
 ```js
-var fractal = require('@frctl/fractal');
 
-fractal.engine('consolidate', '@frctl/consolidate-adapter', {
-    engine: 'swig' // The template language to use
-});
+const consolidate = require('@frctl/consolidate');
+const swigAdapter = consolidate('swig');
 
-fractal.set('components.engine', 'consolidate'); // use the consolidate handler
+fractal.engine(swigAdapter);  // use the consolidate/swig adapter
+
 fractal.set('components.ext', '.swig'); // look for files with a .swig file extension
 ```
 
@@ -47,23 +46,22 @@ You can see a full list of supported template languages on the [Consolidate docu
 
 ## Template Engine Instances
 
-You can customise the [template engine instance](https://github.com/tj/consolidate.js#template-engine-instances) in your `fractal.js` file if you want to add filters, globals, mixins etc before templates are rendered.
+You can customise the [template engine instance](https://github.com/tj/consolidate.js#template-engine-instances) once it has been if you want to add filters, globals, mixins etc.
 
 For example, to extend the above example to use a customised instance of Swig you could do the following:
 
 ```js
-const swig    = require('swig');
-const fractal = require('@frctl/fractal');
+const swig        = require('swig');
+const consolidate = require('@frctl/consolidate');
 
 // Add a custom Swig filter
 swig.setFilter('join', function (input, char) {
-  return input.join(char);
+    return input.join(char);
 });
 
-fractal.engine('consolidate', '@frctl/consolidate-adapter', {
-    engine: 'swig',
-    instance: swig // Pass in the custom Swig instance
-});
-fractal.set('components.engine', 'consolidate');
+const swigAdapter = consolidate('swig', swig); // pass in the customised swig instance to use instead of the default one
+
+fractal.components.engine(swigAdapter); // set it to use as the template engine for components
+
 fractal.set('components.ext', '.swig');
 ```
