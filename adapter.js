@@ -30,7 +30,7 @@ class ConsolidateAdapter extends Adapter {
                 }
             }
         });
-        return Promise.resolve(this.engine(tplPath, context));
+        return Promise.resolve(consolidate[this._engineName](tplPath, context));
     }
 
 }

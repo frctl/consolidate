@@ -1,6 +1,6 @@
 {
   "name": "@frctl/consolidate",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Generic template engine adapter for Fractal, powered by consolidate.js",
   "main": "adapter.js",
   "repository": {
