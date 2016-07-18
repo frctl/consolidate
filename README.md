@@ -6,9 +6,9 @@ If a specific Fractal template engine adapter for your desired language is avail
 
 Currently specific template engine adapters have been implemented for:
 
-* [Handlebars](https://github.com/frctl/handlebars-adapter)
-* [Nunjucks](https://github.com/frctl/nunjucks-adapter)
-* [Mustache](https://github.com/frctl/mustache-adapter)
+* [Handlebars](https://github.com/frctl/handlebars)
+* [Nunjucks](https://github.com/frctl/nunjucks)
+* [Mustache](https://github.com/frctl/mustache)
 
 > Note: Due to the way that Consolidate handles loading of templates, this engine cannot be used for rendering pages, only components.
 
@@ -17,7 +17,7 @@ Currently specific template engine adapters have been implemented for:
 #### 1. Install the consolidate engine adapter
 
 ```shell
-npm i @frctl/consolidate-adapter --save
+npm i @frctl/consolidate --save
 ```
 
 #### 2. Install the template language parser
@@ -39,7 +39,7 @@ const swigAdapter = consolidate('swig');
 
 fractal.engine(swigAdapter);  // use the consolidate/swig adapter
 
-fractal.set('components.ext', '.swig'); // look for files with a .swig file extension
+fractal.components.set('ext', '.swig'); // look for files with a .swig file extension
 ```
 
 You can see a full list of supported template languages on the [Consolidate documentation](https://github.com/tj/consolidate.js).
@@ -63,5 +63,5 @@ const swigAdapter = consolidate('swig', swig); // pass in the customised swig in
 
 fractal.components.engine(swigAdapter); // set it to use as the template engine for components
 
-fractal.set('components.ext', '.swig');
+fractal.components.set('ext', '.swig');
 ```
