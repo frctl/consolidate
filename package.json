@@ -15,10 +15,7 @@
   "homepage": "https://github.com/frctl/consolidate",
   "dependencies": {
     "consolidate": "^0.14.1",
-    "lodash": "^4.0.0"
-  },
-  "devDependencies": {},
-  "peerDependencies": {
-    "@frctl/fractal": "^1.0.0-beta.0"
+    "lodash": "^4.0.0",
+    "@frctl/fractal": "^1.0.0-rc.1"
   }
 }
