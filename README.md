@@ -2,6 +2,8 @@
 
 Generic template engine adapter for [Fractal](http://frctl.github.io), powered by [consolidate.js](https://github.com/tj/consolidate.js).
 
+[![NPM Version](https://img.shields.io/npm/v/@frctl/consolidate.svg?style=flat-square)](https://www.npmjs.com/package/@frctl/consolidate)
+
 If a specific Fractal template engine adapter for your desired language is available then it is recommended to **use that instead** as it will likely be easier to use and configure than this generic handler.
 
 Currently specific template engine adapters have been implemented for:
