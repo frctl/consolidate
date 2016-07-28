@@ -74,6 +74,8 @@ The Consolidate adapter also makes a few special variables available to your tem
 
 Note that using these may tie your templates a little more tightly into Fractal so you may choose not to use them for that reason.
 
+The actual syntax for accessing these variables will depend on the template engine that you use - **Handlebars style** variables are shown in the examples below.
+
 ### _config
 
 Contains the full Fractal configuration object. Useful for when you want to refer to a configuration item in your documentation (or components).
@@ -93,7 +95,7 @@ Contains a simple data object representation of the top-level item (i.e. compone
 
 ### _target
 
-This variable is only set in {{ link('@preview-layouts', 'component preview layouts') }}, and contains a simple data object representation of the item (i.e. component or page) being rendered _within_ the preview layout.
+This variable is only set in component preview layouts, and contains a simple data object representation of the item (i.e. component or page) being rendered _within_ the preview layout.
 
 ```html
 {{ _target.title }} <!-- outputs 'Button' -->
