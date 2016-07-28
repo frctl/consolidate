@@ -65,3 +65,34 @@ fractal.components.engine(swigAdapter); // set it to use as the template engine 
 
 fractal.components.set('ext', '.swig');
 ```
+
+## Special variables
+
+The Consolidate adapter also makes a few special variables available to your templates. They all have names prefixed with an underscore to help prevent clashes with any context data variables that are set by the user.
+
+Note that using these may tie your templates a little more tightly into Fractal so you may choose not to use them for that reason.
+
+### _config
+
+Contains the full Fractal configuration object. Useful for when you want to refer to a configuration item in your documentation (or components).
+
+```html
+{{ _config.project.title }} <!-- outputs the project title -->
+{{ _config.components.ext }} <!-- outputs the extension used for components -->
+```
+
+### _self
+
+Contains a simple data object representation of the top-level item (i.e. component or page) being rendered.
+
+```html
+{{ _self.title }} <!-- outputs 'Button' -->
+```
+
+### _target
+
+This variable is only set in {{ link('@preview-layouts', 'component preview layouts') }}, and contains a simple data object representation of the item (i.e. component or page) being rendered _within_ the preview layout.
+
+```html
+{{ _target.title }} <!-- outputs 'Button' -->
+```

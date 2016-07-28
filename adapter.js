@@ -7,12 +7,13 @@ const Adapter     = require('@frctl/fractal').Adapter;
 
 class ConsolidateAdapter extends Adapter {
 
-    constructor(engineName, instance, source) {
+    constructor(engineName, instance, source, app) {
         if (instance) {
             consolidate.requires[engineName] = instance;
         }
         super(instance || require(engineName), source);
         this._engineName = engineName;
+        this._app = app;
     }
 
     get engine() {
@@ -20,6 +21,11 @@ class ConsolidateAdapter extends Adapter {
     }
 
     render(tplPath, str, context, meta) {
+        meta = meta || {};
+        setEnv('_self', meta.self, context);
+        setEnv('_target', meta.target, context);
+        setEnv('_env', meta.env, context);
+        setEnv('_config', this._app.config(), context);
         context.partials = {};
         _.each(this._views, function(view){
             if (tplPath != view.path) {
@@ -35,13 +41,19 @@ class ConsolidateAdapter extends Adapter {
 
 }
 
+function setEnv(key, value, context) {
+    if (_.isUndefined(context[key]) && ! _.isUndefined(value)) {
+        context[key] = value;
+    }
+}
+
 module.exports = function(engineName, instance) {
 
     return {
 
         register(source, app) {
 
-            return new ConsolidateAdapter(engineName, instance, source);
+            return new ConsolidateAdapter(engineName, instance, source, app);
 
         }
     }
