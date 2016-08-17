@@ -39,7 +39,7 @@ You then need to configure Fractal to use Swig via the Consolidate adapter:
 const consolidate = require('@frctl/consolidate');
 const swigAdapter = consolidate('swig');
 
-fractal.engine(swigAdapter);  // use the consolidate/swig adapter
+fractal.components.engine(swigAdapter);  // use the consolidate/swig adapter
 
 fractal.components.set('ext', '.swig'); // look for files with a .swig file extension
 ```
