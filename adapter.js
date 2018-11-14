@@ -29,7 +29,7 @@ class ConsolidateAdapter extends Adapter {
         context.partials = {};
         _.each(this._views, function(view){
             if (tplPath != view.path) {
-                const relPath = Path.relative(tplPath, view.path).replace('../', '');
+                const relPath = Path.relative(tplPath, view.path).replace('..' + Path.sep, '');
                 const parts = Path.parse(relPath);
                 if ( !_.isEmpty(parts.name) && (Path.extname(tplPath) == Path.extname(view.path))) {
                     context.partials[view.handle] = Path.join(parts.dir, parts.name);
